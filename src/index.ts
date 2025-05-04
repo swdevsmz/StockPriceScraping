@@ -132,6 +132,27 @@ async function sendLineNotification(diff: string) {
     }
 }
 
+function getDiff(oldContent: string, newContent: string): string {
+    const oldLines = oldContent.split('\n');
+    const newLines = newContent.split('\n');
+    const diffLines: string[] = [];
+    
+    // 行ごとに比較
+    for (let i = 0; i < Math.max(oldLines.length, newLines.length); i++) {
+        const oldLine = oldLines[i] || '';
+        const newLine = newLines[i] || '';
+        
+        if (oldLine !== newLine) {
+            diffLines.push(`行 ${i + 1}:`);
+            if (oldLine) diffLines.push(`- ${oldLine}`);
+            if (newLine) diffLines.push(`+ ${newLine}`);
+            diffLines.push(''); // 空行を追加して見やすくする
+        }
+    }
+    
+    return diffLines.join('\n');
+}
+
 async function main() {
     try {
         // データディレクトリの作成
@@ -156,9 +177,10 @@ async function main() {
             
             // 差分がある場合はLINE通知
             if (lastContent) {
-                const diff = `国税庁の財産評価基準書に更新がありました\n\n前回の内容：\n${lastContent}\n\n現在の内容：\n${currentContent}`;
+                const diff = getDiff(lastContent, currentContent);
+                const message = `国税庁の財産評価基準書に更新がありました\n\n変更内容：\n${diff}\n\n詳細はこちら：\n${TARGET_URL}`;
                 console.log('更新があります。LINE通知を送信します。');
-                await sendLineNotification(diff);
+                await sendLineNotification(message);
             }
         } else {
             console.log('変更はありませんでした。');
