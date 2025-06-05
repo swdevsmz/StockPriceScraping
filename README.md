@@ -1,7 +1,7 @@
 # 国税庁財産評価基準書更新通知システム
 
-このプロジェクトは、国税庁の財産評価基準書の更新を自動的に監視し、  
-変更があった場合にLINE通知を送信するシステムです。
+このプロジェクトは、[国税庁の財産評価基準書ページ](https://www.nta.go.jp/law/tsutatsu/kobetsu/hyoka/zaisan.htm)の更新を自動的に監視し、  
+変更があった場合にメール通知を送信するシステムです。
 
 ## 機能
 
@@ -63,23 +63,6 @@ stock-price-scraping/
 ├── .env                  # 環境変数設定ファイル（手動作成）
 ├── package.json          # プロジェクト設定
 └── tsconfig.json         # TypeScript設定
-```
-
-## LINE通知
-
-更新があった場合、以下のような形式でLINE通知が送信されます：
-
-```
-国税庁の財産評価基準書に更新がありました
-
-前回の内容：
-[前回の内容]
-
-現在の内容：
-[現在の内容]
-
-詳細はこちら：
-https://www.nta.go.jp/law/tsutatsu/kobetsu/hyoka/zaisan.htm
 ```
 
 ## 注意事項
