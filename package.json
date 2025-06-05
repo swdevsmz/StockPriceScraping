@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts"
+    "start": "node dist/main.js",
+    "dev": "ts-node src/main.ts"
   },
   "dependencies": {
     "@line/bot-sdk": "^8.4.0",
