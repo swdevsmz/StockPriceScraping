@@ -50,11 +50,14 @@ async function scrapeTable() {
             // すべての行の内容を取得
             const result = rows.map(row => {
                 const cells = Array.from(row.querySelectorAll('td, th')); // セルを取得
-                return cells.map(cell => cell.textContent?.trim() ?? '').join('\t'); // セルの内容をタブ区切りで結合
+                // セル内の改行コードを削除し、タブ区切りで結合
+                return cells.map(cell => (cell.textContent?.trim() ?? '').replace(/\r?\n/g, ' ').replace(/\s+/g, ' ')).join('\t');
             });
             return result; // 行の配列を返す
         });
         
+        console.log('テーブルの内容を取得しました:', content);
+
         if (!content) {
             throw new Error('テーブルの内容を取得できませんでした');
         }
@@ -76,7 +79,7 @@ async function scrapeTable() {
  */
 async function sendEmailNotification(diff: string) : Promise<boolean> {
     const subject = '国税庁の財産評価基準書に更新がありました';
-    const message = `${diff}\n\n詳細はこちら：\n${TARGET_URL}`;
+    const message = `詳細はこちら：\n${TARGET_URL}\n\n${diff}`;
     
     try {
         const success = await emailNotifier.sendNotification(subject, message);
@@ -100,8 +103,9 @@ async function sendEmailNotification(diff: string) : Promise<boolean> {
  * @returns 差分の内容
  */
 function getDiff(oldContent: string, newContent: string): string {
-    const oldLines = oldContent.split('\n');
-    const newLines = newContent.split('\n');
+    const oldLines = oldContent.split(os.EOL);
+    const newLines = newContent.split(os.EOL);
+  
     const diffLines: string[] = [];
     
     // 行ごとに比較
@@ -117,7 +121,7 @@ function getDiff(oldContent: string, newContent: string): string {
         }
     }
     
-    return diffLines.join('\n');
+    return diffLines.join(os.EOL);
 }
 
 async function main() {

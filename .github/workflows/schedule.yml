@@ -2,7 +2,9 @@ name: Schedule Scraping
 
 on:
   schedule:
-    - cron: '30 10 * * *'  # 毎日19:30（UTC 10:30）に実行
+    - cron: '0 1 * * *'   # 毎日10:00 JST (01:00 UTC)に実行
+    - cron: '0 6 * * *'   # 毎日15:00 JST (06:00 UTC)に実行
+    - cron: '30 10 * * *' # 毎日19:30 JST (10:30 UTC)に実行
   workflow_dispatch:  # 手動実行を可能にする
 
 permissions:
