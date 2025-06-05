@@ -9,14 +9,24 @@
     "dev": "ts-node src/index.ts"
   },
   "dependencies": {
-    "@playwright/test": "^1.42.1",
-    "dotenv": "^16.4.5",
     "@line/bot-sdk": "^8.4.0",
-    "axios": "^1.6.7"
+    "@playwright/test": "^1.42.1",
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
+    "email-notifier": "^14.1.1",
+    "nodemailer": "^7.0.3",
+    "stock-price-scraping": "file:"
   },
   "devDependencies": {
     "@types/node": "^20.11.24",
+    "@types/nodemailer": "^6.4.17",
+    "@typescript-eslint/eslint-plugin": "^8.33.1",
+    "@typescript-eslint/parser": "^8.33.1",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.1",
+    "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.8.3"
   }
-} 
+}
